@@ -49,6 +49,8 @@ then
 		do
 			args+=( "--destination" "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION:$tag" )
 		done
+	else
+		args+=( "--no-push" )
 	fi
 else
 	args+=( "--no-push" )
