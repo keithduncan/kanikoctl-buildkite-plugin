@@ -1,0 +1,17 @@
+name: kanikoctl
+description: Build images using kaniko over a socket
+author: https://github.com/keithduncan
+requirements:
+  - socat
+configuration:
+  properties:
+    context_path:
+      type: string
+    build_args:
+      type: list
+    destination:
+      type: string
+    tags:
+      type: list
+  required:
+    - context_path

@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -o pipefail
+
+args=()
+
+# --build-arg IAM_SSH_AGENT_VERSION=\$IAM_SSH_AGENT_VERSION \$DESTINATIONS" | 
+args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
+
+# Copied from https://github.com/buildkite-plugins/docker-buildkite-plugin/blob/master/hooks/command
+#
+# Reads a list from plugin config into a global result array
+# Returns success if values were read
+plugin_read_list_into_result() {
+  result=()
+
+  for prefix in "$@" ; do
+    local i=0
+    local parameter="${prefix}_${i}"
+
+    if [[ -n "${!prefix:-}" ]] ; then
+      echo "🚨 Plugin received a string for $prefix, expected an array" >&2
+      exit 1
+    fi
+
+    while [[ -n "${!parameter:-}" ]]; do
+      result+=("${!parameter}")
+      i=$((i+1))
+      parameter="${prefix}_${i}"
+    done
+  done
+
+  [[ ${#result[@]} -gt 0 ]] || return 1
+}
+
+if plugin_read_list_into_result BUILDKITE_PLUGIN_KANIKOCTL_BUILD_ARGS
+then
+  for build_arg in "${result[@]}"
+  do
+  	args+=( "--build-arg" "${build_arg}" )
+  done
+fi
+
+if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION" ]
+then
+	if plugin_read_list_into_result BUILDKITE_PLUGIN_KANIKOCTL_BUILD_ARGS
+	then
+		for tag in "${result[@]}"
+		do
+			args+=( "--destination" "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION:$tag" )
+		done
+	fi
+else
+	args+=( "--no-push" )
+fi
+
+if [ ! -S "$KANIKO_SOCKET" ]
+then
+	echo >&2 "the KANIKO_SOCKET environment variable is not a socket"
+	exit 1
+fi
+
+set -x
+
+echo "${args[@]}" | socat STDIO,ignoreeof unix-connect:$KANIKO_SOCKET
