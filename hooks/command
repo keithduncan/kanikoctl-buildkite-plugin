@@ -45,7 +45,7 @@ fi
 
 if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION" ]
 then
-	if plugin_read_list_into_result BUILDKITE_PLUGIN_KANIKOCTL_BUILD_ARGS
+	if plugin_read_list_into_result BUILDKITE_PLUGIN_KANIKOCTL_BUILD_TAGS
 	then
 		for tag in "${result[@]}"
 		do
