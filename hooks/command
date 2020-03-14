@@ -45,16 +45,16 @@ fi
 
 if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION" ]
 then
-	if plugin_read_list_into_result BUILDKITE_PLUGIN_KANIKOCTL_BUILD_TAGS
+	if plugin_read_list_into_result BUILDKITE_PLUGIN_KANIKOCTL_TAGS
 	then
 		# Tags is a list of string literal
 		for tag in "${result[@]}"
 		do
 			args+=( "--destination" "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION:$tag" )
 		done
-	elif [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_BUILD_TAGS_REF" ]
+	elif [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_TAGS_REF" ]
 		# Tags is a ref to a buildkite-agent meta-data key of comma separated tags
-		tags="$(buildkite-agent meta-data get "$BUILDKITE_PLUGIN_KANIKOCTL_BUILD_TAGS_REF")"
+		tags="$(buildkite-agent meta-data get "$BUILDKITE_PLUGIN_KANIKOCTL_TAGS_REF")"
 		for tag in ${tags//,/ }
 		do
 			args+=( "--destination" "$BUILDKITE_PLUGIN_KANIKOCTL_DESTINATION:$tag" )
