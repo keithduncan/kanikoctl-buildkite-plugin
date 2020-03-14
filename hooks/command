@@ -4,7 +4,7 @@ set -o pipefail
 
 args=()
 
-args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$PWD/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
+args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
 
 if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_DOCKERFILE" ]
 then
