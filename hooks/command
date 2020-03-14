@@ -4,8 +4,7 @@ set -o pipefail
 
 args=()
 
-# --build-arg IAM_SSH_AGENT_VERSION=\$IAM_SSH_AGENT_VERSION \$DESTINATIONS" | 
-args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
+args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$PWD/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
 
 # Copied from https://github.com/buildkite-plugins/docker-buildkite-plugin/blob/master/hooks/command
 #
