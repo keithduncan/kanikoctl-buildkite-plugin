@@ -4,11 +4,17 @@ set -o pipefail
 
 args=()
 
-args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
+args+=( "exec" "executor" "--force" "--context=$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
 
 if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_DOCKERFILE" ]
 then
 	args+=( "--dockerfile=$BUILDKITE_PLUGIN_KANIKOCTL_DOCKERFILE" )
+fi
+
+# <...|info|debug|trace> see https://github.com/GoogleContainerTools/kaniko#--verbosity
+if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_VERBOSITY" ]
+then
+	args+=( "--verbosity=$BUILDKITE_PLUGIN_KANIKOCTL_VERBOSITY" )
 fi
 
 # Copied from https://github.com/buildkite-plugins/docker-buildkite-plugin/blob/master/hooks/command

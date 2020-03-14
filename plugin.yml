@@ -5,6 +5,8 @@ requirements:
   - socat
 configuration:
   properties:
+    verbosity:
+      type: string
     context_path:
       type: string
     dockerfile:
