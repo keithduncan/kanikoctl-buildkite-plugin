@@ -2,6 +2,8 @@
 
 set -o pipefail
 
+export -p
+
 args=()
 
 # --build-arg IAM_SSH_AGENT_VERSION=\$IAM_SSH_AGENT_VERSION \$DESTINATIONS" | 
@@ -58,6 +60,7 @@ fi
 
 if [ ! -S "$KANIKO_SOCKET" ]
 then
+	echo >&2 "${args[@]}"
 	echo >&2 "the KANIKO_SOCKET environment variable is not a socket"
 	exit 1
 fi
