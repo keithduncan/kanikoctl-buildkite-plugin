@@ -6,6 +6,11 @@ args=()
 
 args+=( "exec" "executor" "--force" "--verbosity=debug" "--context=$PWD/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
 
+if [ -n "$BUILDKITE_PLUGIN_KANIKOCTL_DOCKERFILE" ]
+then
+	args+=( "--dockerfile=$BUILDKITE_PLUGIN_KANIKOCTL_DOCKERFILE" )
+fi
+
 # Copied from https://github.com/buildkite-plugins/docker-buildkite-plugin/blob/master/hooks/command
 #
 # Reads a list from plugin config into a global result array

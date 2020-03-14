@@ -7,6 +7,8 @@ configuration:
   properties:
     context_path:
       type: string
+    dockerfile:
+      type: string
     build_args:
       type: list
     destination:
