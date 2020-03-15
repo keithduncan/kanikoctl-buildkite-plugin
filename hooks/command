@@ -2,6 +2,8 @@
 
 set -o pipefail
 
+echo "^^^ +++"
+
 args=()
 
 args+=( "exec" "executor" "--force" "--context=$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_PLUGIN_KANIKOCTL_CONTEXT_PATH" )
