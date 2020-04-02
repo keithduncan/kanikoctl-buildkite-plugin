@@ -24,8 +24,8 @@ image is built but not pushed. If no `tags` are specified the `latest` tag is
 used by default.
 * **tags**: Optional, list of strings, if `destination` is given the image is
 pushed to these registry tags e.g. `tags: ['0.1.1', '0.1', '0']`. Tags also
-supports a ref syntax: `tags: { Ref: meta-data-key }` where `meta-data-key` is
-looked up using `buildkite-agent meta-data get meta-data-key` and the string is
+supports a ref syntax: `tags: { Ref: version }` where `version` is
+looked up using `buildkite-agent meta-data get version` and the string is
 split on comma to generate a list of tags.
 
 ## Example
