@@ -6,6 +6,9 @@ running in a separate container.
 See [keithduncan/kaniko-socat](https://github.com/keithduncan/kaniko-socat) for
 a Docker image with the kaniko binaries and `socat` installed.
 
+See [keithduncan/buildkite-on-demand](https://github.com/keithduncan/buildkite-on-demand/tree/master/agent-composer#building-docker-images)
+for an example of how to use this.
+
 ## Plugin Parameters
 
 * **[verbosity](https://github.com/GoogleContainerTools/kaniko#--verbosity)**:
