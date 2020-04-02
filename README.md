@@ -27,3 +27,19 @@ pushed to these registry tags e.g. `tags: ['0.1.1', '0.1', '0']`. Tags also
 supports a ref syntax: `tags: { Ref: meta-data-key }` where `meta-data-key` is
 looked up using `buildkite-agent meta-data get meta-data-key` and the string is
 split on comma to generate a list of tags.
+
+## Example
+
+```yaml
+agents:
+  queue: your-on-demand-queue
+
+steps:
+  - label: ":docker: :kangaroo:"
+    plugins:
+      - "keithduncan/kanikoctl#261d24e5f25e01ba0ee8f2b406c5ff7c260d2cc5":
+          destination: keithduncan/hello-world
+    agents:
+      task-definition: kaniko
+      task-role: DockerHubPublish
+```
